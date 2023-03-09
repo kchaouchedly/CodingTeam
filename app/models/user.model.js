@@ -6,12 +6,16 @@ const User = mongoose.model(
     username: String,
     email: String,
     password: String,
+    isVerified: Boolean,
+    photo : String , 
     roles: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Role"
       }
-    ]
+    ],
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
   })
 );
 
