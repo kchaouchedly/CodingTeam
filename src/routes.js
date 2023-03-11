@@ -128,7 +128,9 @@ const routes = [
     icon: <SpaceShip size="12px" />,
     component: <SignUp />,
     noCollapse: true,
-  },
+  }
+  
+  
 ];
 
 export default routes;

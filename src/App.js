@@ -47,6 +47,7 @@ import { useSoftUIController, setMiniSidenav, setOpenConfigurator } from "contex
 
 // Images
 import brand from "assets/images/logo-ct.png";
+import SignUp from "layouts/authentication/sign-up";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -178,6 +179,8 @@ export default function App() {
       <Routes>
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/dashboard" />} />
+
+        
       </Routes>
     </ThemeProvider>
   );
