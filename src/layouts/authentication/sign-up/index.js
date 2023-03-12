@@ -38,6 +38,11 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 import Socials from "layouts/authentication/components/Socials";
 import Separator from "layouts/authentication/components/Separator";
 
+/* -------------------------------------------------------------------------- */
+/*                                import style                                */
+/* -------------------------------------------------------------------------- */
+
+import './style.css'
 // Images
 import curved6 from "assets/images/curved-images/curved14.jpg";
 
@@ -75,7 +80,6 @@ function SignUp() {
   const signInButton = () => {
     setIsContainerActive(true);
   };
-
 
 
 
@@ -171,15 +175,22 @@ function SignUp() {
 
   const handleFileSelect = (e) => {
     ///   setSelectedFile(selectedFile)
-
+const file = e.target.files[0];
     // setSelectedFile(e.target.files)
     setSelectedFile(e.target.files);
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setSelectedFile(reader.result);
+    };
+    reader.readAsDataURL(file);
 
     console.log('e.target.files ', e.target.files);
   };
 
   console.log('selectedFile ', selectedFile);
+
   return (
+    
     <BasicLayout
       title="Welcome!"
       description="Use these awesome forms to login or create new account in your project for free."
@@ -196,7 +207,22 @@ function SignUp() {
             <Socials />
           </SoftBox>
           <Separator />
+
+          <SoftBox p={2} mb={3} textAlign="center">
+         
+     
+          {selectedFile && (
+                <img  src={selectedFile} height="100px" width="100px" className="image"  alt={selectedFile.name}  /> 
+              )}
+
+              
+               <div className="middle">
+             <div className="text">{selectedFile.name}</div>
+                 </div> 
+            
+          </SoftBox>
           <SoftBox pt={2} pb={3} px={3}>
+         
             <SoftBox onSubmit={handleSubmitSignup}>
               <SoftBox mb={2}>
                 <SoftInput
@@ -218,8 +244,15 @@ function SignUp() {
                   required
                 />
               </SoftBox>
+
+             
+
               <SoftBox mb={2}>
+
+
                 <SoftInput type="file" name="avatar" onChange={handleFileSelect} />
+
+
               </SoftBox>
               <SoftBox mb={2}>
                 <SoftInput
