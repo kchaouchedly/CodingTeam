@@ -38,12 +38,18 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 import Socials from "layouts/authentication/components/Socials";
 import Separator from "layouts/authentication/components/Separator";
 
+/* -------------------------------------------------------------------------- */
+/*                                import style                                */
+/* -------------------------------------------------------------------------- */
+
+import './style.css'
 // Images
-import curved6 from "assets/images/curved-images/curved14.jpg";
+import curved6 from "assets/images/curved-images/iiii.jpg";
 
 function SignUp() {
   const navigate = useNavigate();
   const [dataLogin,setdataLogin] = useState({ username: '', password: '' });
+  const[displayimg,setDisplayim]=useState(false)
   const [error, setError] = useState('');
   const [isContainerActive, setIsContainerActive] = useState(false);
   const [passwordShown, setPasswordShown] = useState(false);
@@ -80,7 +86,6 @@ function SignUp() {
 
 
 
-
   const handleChange = ({ currentTarget: input }) => {
       setdataLogin({ ...dataLogin, [input.name]: input.value });
     };
@@ -89,7 +94,7 @@ function SignUp() {
     e.preventDefault();
     setIsSubmitted(true);
     try {
-      const url = 'http://localhost:8080/api/auth/signin';
+      const url = 'http://localhost:8000/api/auth/signin';
       const { data: res } = await axios.post(url, dataLogin);
       localStorage.setItem('token', res.data);
       console.log('data', dataLogin)
@@ -138,7 +143,7 @@ function SignUp() {
     eventFormData.append('password', data.password);
   
     try {
-      const url = 'http://localhost:8080/api/auth/signup';
+      const url = 'http://localhost:8000/api/auth/signup';
       const { data: res } = await axios.post(url, eventFormData);
   
       console.log(res.message);
@@ -171,18 +176,25 @@ function SignUp() {
 
   const handleFileSelect = (e) => {
     ///   setSelectedFile(selectedFile)
-
+const file = e.target.files[0];
     // setSelectedFile(e.target.files)
     setSelectedFile(e.target.files);
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setSelectedFile(reader.result);
+    };
+    reader.readAsDataURL(file);
 
     console.log('e.target.files ', e.target.files);
   };
 
   console.log('selectedFile ', selectedFile);
+
   return (
+    
     <BasicLayout
       title="Welcome!"
-      description="Use these awesome forms to login or create new account in your project for free."
+      description="Use Agricom To improve your farm ."
       image={curved6}
     >
       <Card>
@@ -196,7 +208,19 @@ function SignUp() {
             <Socials />
           </SoftBox>
           <Separator />
+
+         
+  
           <SoftBox pt={2} pb={3} px={3}>
+          {selectedFile && (
+                <img  src={selectedFile} height="100px" width="100px" className="image"  alt={selectedFile.name}  /> 
+              )}
+
+              
+               <div className="middle">
+             <div className="text">{selectedFile.name}</div>
+                 </div> 
+         
             <SoftBox onSubmit={handleSubmitSignup}>
               <SoftBox mb={2}>
                 <SoftInput
@@ -218,8 +242,15 @@ function SignUp() {
                   required
                 />
               </SoftBox>
+
+             
+
               <SoftBox mb={2}>
+
+
                 <SoftInput type="file" name="avatar" onChange={handleFileSelect} />
+
+
               </SoftBox>
               <SoftBox mb={2}>
                 <SoftInput

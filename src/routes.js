@@ -54,6 +54,7 @@ import SpaceShip from "examples/Icons/SpaceShip";
 import CustomerSupport from "examples/Icons/CustomerSupport";
 import CreditCard from "examples/Icons/CreditCard";
 import Cube from "examples/Icons/Cube";
+import ResetPassword from "layouts/authentication/sign-in/resetpassword";
 
 const routes = [
   {
@@ -127,6 +128,15 @@ const routes = [
     route: "/authentication/sign-up",
     icon: <SpaceShip size="12px" />,
     component: <SignUp />,
+    noCollapse: true,
+  },
+  {
+    type: "collapse",
+    name: "Sign Up",
+    key: "sign-up",
+    route: "/authentication/reset",
+    icon: <SpaceShip size="12px" />,
+    component: <ResetPassword />,
     noCollapse: true,
   }
   
